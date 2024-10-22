@@ -1,20 +1,26 @@
 import Post from "./Post"
 import NewPost from './NewPost';
 import classes from './PostsList.module.css';
-
-const posts = [
-    { author: "Author 1", body: "Post 1 body" },
-    { author: "Author 2", body: "Post 2 body" },
-    { author: "Author 3", body: "Post 3 body" },
-    { author: "Author 4", body: "Post 4 body" },
-]
+import { useState } from 'react';
 
 function PostsList() {
+    const [enteredBody, setEnteredBody] = useState('');
+    const [enteredAuthor, setEnteredAuthor] = useState('');
+
+    function changeBodyHandler(event) {
+      setEnteredBody(event.target.value);
+    }
+
+    function changeAuthorHandler(event) {
+      setEnteredAuthor(event.target.value);
+    }
+  
     return (
         <>
-            <NewPost />
+            <NewPost onBodyChange={changeBodyHandler} onAuthorChange={changeAuthorHandler} />
             <ul className={classes.posts}>
-                <Post posts={posts} />
+                <Post author={enteredAuthor} body={enteredBody} />
+                <Post author="Lucas Salicano" body="body text two" />
             </ul>
         </>
     );
